@@ -1,0 +1,21 @@
+# Entorno virtual
+.venv/
+env/
+venv/
+
+# Conda
+.env
+
+# Archivos de Python
+__pycache__/
+*.pyc
+
+# VS Code
+.vscode/
+
+# Archivos del sistema
+.DS_Store
+Thumbs.db
+
+# Audios generados
+audios/*.mp3
