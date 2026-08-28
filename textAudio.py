@@ -3,6 +3,7 @@ Utiliza la biblioteca gTTS para convertir el texto en audio.'''
 
 #---Importar paquetes---
 from gtts import gTTS
+import os
 
 #---Bienvenida al usuario---
 print('')
@@ -29,6 +30,8 @@ if not idioma.strip():
 #---Intentar convertir la frase en audio---
 try:
     tts = gTTS(text=frase, lang=idioma)
+
+    os.makedirs('audios', exist_ok=True)
 
     archivo = 'audios/frase.mp3'
 
