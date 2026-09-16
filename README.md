@@ -143,7 +143,7 @@ ArticleToAudio sigue un flujo sencillo en el que cada componente de la aplicaci�
           └── 💾 Genera el archivo MP3
           │
           ▼
-      🎧 Audio guardado en /audios
+      🎧 Audio guardado en /audios</code>
 
 ### 1. 🌐 Recepción y extracción del artículo
 
@@ -198,3 +198,169 @@ Si no es posible determinar automáticamente el idioma del artículo, la aplicac
                   detectado      al usuario
 
 De esta manera, ArticleToAudio dispone de tres posibilidades para obtener el idioma: metadatos del artículo, detección mediante langdetect o introducción manual por parte del usuario.
+
+## 📦 Instalación
+
+Para ejecutar ArticleToAudio, es necesario tener instalado Python 3.12 y configurar un entorno con las dependencias del proyecto.
+
+### 1. 📥 Clonar el repositorio
+
+Clona el repositorio desde GitHub:
+
+git clone https://github.com/lucurban/ArticleToAudio.git
+
+Después, entra en la carpeta del proyecto:
+
+cd ArticleToAudio
+
+### 2. 🐍 Crear un entorno virtual
+
+Se recomienda utilizar un entorno virtual para mantener aisladas las dependencias del proyecto.
+
+python3 -m venv .venv
+
+Activa el entorno virtual:
+
+**🐧 Linux / macOS**
+source .venv/bin/activate
+
+**🪟 Windows**
+.venv\Scripts\activate
+
+### 3. 📚 Instalar las dependencias
+
+Con el entorno virtual activado, instala las librerías necesarias mediante el archivo requirements.txt:
+
+pip install -r requirements.txt
+
+### 4. ▶️ Ejecutar la aplicación
+
+Finalmente, ejecuta el archivo principal:
+
+python src/main.py
+
+La aplicación solicitará la URL del artículo que deseas convertir en audio.
+
+## ▶️ Uso
+
+Una vez instaladas las dependencias, ejecuta la aplicación desde la carpeta raíz del proyecto:
+
+python src/main.py
+
+### 📝 Pasos para utilizar ArticleToAudio
+
+1. 🌐 Introduce la URL del artículo web que deseas convertir.
+2. 📥 Espera mientras la aplicación descarga y analiza el contenido.
+3. 🔤 Si el idioma no puede detectarse automáticamente, introdúcelo manualmente utilizando su código correspondiente.
+4. 🔊 Espera mientras el texto se convierte en audio.&nbsp;
+5. 🎧 Consulta la ruta mostrada en consola para acceder al archivo .mp3 generado.
+
+### 💻 Ejemplo de uso
+
+Bienvenido al convertidor de artículos web en audios
+
+Ingresa la URL del artículo que deseas convertir en audio: https://ejemplo.com/articulo
+
+El idioma del artículo es: es
+
+El articulo esta siendo convertido en audio, por favor espera...
+
+El artículo "articulo" ha sido convertido en audio y guardado en: audios/audio_2026-09-15_19-35-44.mp3.
+
+## 🔤 Detección del idioma
+
+ArticleToAudio utiliza un proceso de detección de idioma para seleccionar la configuración adecuada de conversión de texto a voz.
+
+La aplicación emplea dos métodos principales:
+
+### 1. 🌐 Detección mediante metadatos
+
+En primer lugar, 'Extractor.py' consulta los metadatos del artículo obtenidos mediante **'newspaper3k'**.
+
+Si el idioma está disponible en dichos metadatos, se utiliza directamente.
+
+### 2. 🧠 Detección mediante el texto
+
+Si los metadatos no contienen información sobre el idioma, la aplicación utiliza la librería **'langdetect'** para analizar el texto extraído e intentar identificar su idioma.
+
+### 3. 👤 Introducción manual del idioma
+
+Si ninguno de los métodos anteriores permite identificar el idioma, la aplicación solicita al usuario que lo introduzca manualmente.
+
+Por ejemplo:
+
+--------
+No fue posible obtener el idioma del artículo de manera automatica
+
+Ingresa el idioma del artículo (por ejemplo, "es" para  español, "en" para inglés o "fr" para francés, entre otros):
+
+--------
+
+
+De esta manera, ArticleToAudio puede continuar con la conversión siempre que el usuario proporcione un código de idioma compatible con gTTS.
+
+ℹ️ La detección automática puede presentar dificultades cuando el texto es demasiado corto, contiene varios idiomas o no tiene suficiente información para identificarlo correctamente.
+
+## ⚠️ Manejo de errores
+
+ArticleToAudio incorpora un manejo básico de errores para informar al usuario cuando ocurre algún problema durante la extracción del artículo o la generación del archivo de audio.
+
+### 🌐 Errores durante la extracción
+
+Si se presenta un problema al descargar o analizar el artículo, la aplicación muestra el siguiente mensaje:
+
+--------
+text
+
+No fue posible convertir el artículo.
+
+Verifica que:
+
+-La URL sea correcta
+
+-Tengas conexión a internet
+
+-El sitio web permita la extracción de contenido
+
+--------
+
+Este bloque contempla posibles situaciones como:
+
+* 🔗 Una URL incorrecta o no válida.
+* 🌐 Problemas de conexión a internet.
+* 🚫 Sitios web que no permiten la extracción de contenido.
+* 📄 Errores durante la descarga o el análisis del artículo.
+
+### 🔤 Error en la detección del idioma
+
+Si no es posible obtener automáticamente el idioma del artículo, la aplicación solicita al usuario que lo introduzca manualmente.
+
+--------
+No fue posible obtener el idioma del artículo de manera automatica
+
+Ingresa el idioma del artículo (por ejemplo, "es" para español, "en" para inglés o "fr" para franccés, entre otros):
+
+--------
+
+De esta manera, el proceso puede continuar utilizando el código de idioma proporcionado por el usuario.
+
+### 🔊 Errores durante la conversión a audio
+
+Si ocurre un problema al convertir el texto en audio, la aplicación muestra un mensaje informativo:
+
+--------
+No fue posible convertir el artículo en audio.
+Por favor verifica tu conexión a internet
+
+--------
+
+Este error puede producirse, por ejemplo, cuando:
+
+🌐 No existe conexión a internet.
+
+🔊 El servicio utilizado por gTTS no está disponible.
+⚙️ Se presenta un problema durante la generación o el guardado del archivo MP3.
+
+### 🧩 Implementación
+
+El manejo de errores se realiza mediante bloques try y except, que permiten controlar las excepciones y mostrar mensajes comprensibles para el usuario en lugar de finalizar el programa mostrando únicamente un error técnico.
