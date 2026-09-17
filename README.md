@@ -62,7 +62,8 @@
 
 El proyecto está organizado de manera modular, separando las responsabilidades principales de la aplicación:
 
-<code>ArticleToAudio/
+```text
+ArticleToAudio/
 │
 ├── 📂 src/
 │   ├── 📄 main.py
@@ -74,9 +75,10 @@ El proyecto está organizado de manera modular, separando las responsabilidades 
 │
 ├── 📄 requirements.txt
 ├── 📄 .gitignore
-└── 📄 README.md</code>
+└── 📄 README.md
+```
 
-📄 Archivos principales
+## 📄 Archivos principales
 
 ### 🖥️ main.py
 
@@ -114,36 +116,38 @@ ArticleToAudio sigue un flujo sencillo en el que cada componente de la aplicaci�
 
 ### 🔄 Flujo de ejecución
 
-<code>👤 Usuario
-          │
-          │ Introduce la URL
-          ▼
-      🖥️ main.py
-          │
-          ▼
-      🌐 Extractor
-          │
-          ├── 📥 Descarga el artículo
-          │
-          ├── 🔎 Analiza su contenido
-          │
-          ├── 📄 Obtiene el título
-          │
-          ├── 📝 Obtiene el texto
-          │
-          └── 🔤 Obtiene el idioma
-          │
-          ▼
-      🔊 Audio
-          │
-          ├── Recibe texto + idioma
-          │
-          ├── ⚙️ Procesa el texto con gTTS
-          │
-          └── 💾 Genera el archivo MP3
-          │
-          ▼
-      🎧 Audio guardado en /audios</code>
+```
+👤 Usuario
+     │
+     │ Introduce la URL
+     ▼
+🖥️ main.py
+     │
+     ▼
+🌐 Extractor
+     │
+     ├── 📥 Descarga el artículo
+     │
+     ├── 🔎 Analiza su contenido
+     │
+     ├── 📄 Obtiene el título
+     │
+     ├── 📝 Obtiene el texto
+     │
+     └── 🔤 Obtiene el idioma
+     │
+     ▼
+ 🔊 Audio
+     │
+     ├── Recibe texto + idioma
+     │
+     ├── ⚙️ Procesa el texto con gTTS
+     │
+     └── 💾 Genera el archivo MP3
+     │
+     ▼
+ 🎧 Audio guardado en /audios
+```
 
 ### 1. 🌐 Recepción y extracción del artículo
 
@@ -179,6 +183,7 @@ Finalmente, main.py informa al usuario que el proceso ha terminado y muestra la 
 
 Si no es posible determinar automáticamente el idioma del artículo, la aplicación solicita al usuario que lo introduzca manualmente.
 
+```text
               ¿Idioma disponible?
                        │
                  ┌─────┴───────┐
@@ -196,6 +201,7 @@ Si no es posible determinar automáticamente el idioma del artículo, la aplicac
                          ▼           ▼
                   Usar idioma    Solicitar idioma
                   detectado      al usuario
+```
 
 De esta manera, ArticleToAudio dispone de tres posibilidades para obtener el idioma: metadatos del artículo, detección mediante langdetect o introducción manual por parte del usuario.
 
@@ -207,37 +213,51 @@ Para ejecutar ArticleToAudio, es necesario tener instalado Python 3.12 y configu
 
 Clona el repositorio desde GitHub:
 
+```bash
 git clone https://github.com/lucurban/ArticleToAudio.git
+```
 
 Después, entra en la carpeta del proyecto:
 
+```bash
 cd ArticleToAudio
+```
 
 ### 2. 🐍 Crear un entorno virtual
 
 Se recomienda utilizar un entorno virtual para mantener aisladas las dependencias del proyecto.
 
+```bash
 python3 -m venv .venv
+```
 
 Activa el entorno virtual:
 
 **🐧 Linux / macOS**
+```bash
 source .venv/bin/activate
+```
 
 **🪟 Windows**
+```bash
 .venv\Scripts\activate
+```
 
 ### 3. 📚 Instalar las dependencias
 
 Con el entorno virtual activado, instala las librerías necesarias mediante el archivo requirements.txt:
 
+```bash
 pip install -r requirements.txt
+```
 
 ### 4. ▶️ Ejecutar la aplicación
 
 Finalmente, ejecuta el archivo principal:
 
+```bash
 python src/main.py
+```
 
 La aplicación solicitará la URL del artículo que deseas convertir en audio.
 
@@ -271,11 +291,11 @@ El artículo "articulo" ha sido convertido en audio y guardado en: audios/audio_
 
 ArticleToAudio utiliza un proceso de detección de idioma para seleccionar la configuración adecuada de conversión de texto a voz.
 
-La aplicación emplea dos métodos principales:
+La aplicación emplea dos métodos automáticos y un mecanismo manual de respaldo:
 
 ### 1. 🌐 Detección mediante metadatos
 
-En primer lugar, 'Extractor.py' consulta los metadatos del artículo obtenidos mediante **'newspaper3k'**.
+En primer lugar, 'extractor.py' consulta los metadatos del artículo obtenidos mediante **'newspaper3k'**.
 
 Si el idioma está disponible en dichos metadatos, se utiliza directamente.
 
@@ -289,13 +309,11 @@ Si ninguno de los métodos anteriores permite identificar el idioma, la aplicaci
 
 Por ejemplo:
 
---------
+```text
 No fue posible obtener el idioma del artículo de manera automatica
 
 Ingresa el idioma del artículo (por ejemplo, "es" para  español, "en" para inglés o "fr" para francés, entre otros):
-
---------
-
+```
 
 De esta manera, ArticleToAudio puede continuar con la conversión siempre que el usuario proporcione un código de idioma compatible con gTTS.
 
@@ -309,8 +327,8 @@ ArticleToAudio incorpora un manejo básico de errores para informar al usuario c
 
 Si se presenta un problema al descargar o analizar el artículo, la aplicación muestra el siguiente mensaje:
 
---------
-text
+
+```text
 
 No fue posible convertir el artículo.
 
@@ -321,8 +339,7 @@ Verifica que:
 -Tengas conexión a internet
 
 -El sitio web permita la extracción de contenido
-
---------
+```
 
 Este bloque contempla posibles situaciones como:
 
@@ -335,12 +352,11 @@ Este bloque contempla posibles situaciones como:
 
 Si no es posible obtener automáticamente el idioma del artículo, la aplicación solicita al usuario que lo introduzca manualmente.
 
---------
-No fue posible obtener el idioma del artículo de manera automatica
+```text
+No fue posible obtener el idioma del artículo de manera automática
 
-Ingresa el idioma del artículo (por ejemplo, "es" para español, "en" para inglés o "fr" para franccés, entre otros):
-
---------
+Ingresa el idioma del artículo (por ejemplo, "es" para español, "en" para inglés o "fr" para francés, entre otros):
+```
 
 De esta manera, el proceso puede continuar utilizando el código de idioma proporcionado por el usuario.
 
@@ -348,19 +364,191 @@ De esta manera, el proceso puede continuar utilizando el código de idioma propo
 
 Si ocurre un problema al convertir el texto en audio, la aplicación muestra un mensaje informativo:
 
---------
+```text
 No fue posible convertir el artículo en audio.
 Por favor verifica tu conexión a internet
-
---------
+```
 
 Este error puede producirse, por ejemplo, cuando:
 
 🌐 No existe conexión a internet.
 
 🔊 El servicio utilizado por gTTS no está disponible.
+
 ⚙️ Se presenta un problema durante la generación o el guardado del archivo MP3.
 
 ### 🧩 Implementación
 
 El manejo de errores se realiza mediante bloques try y except, que permiten controlar las excepciones y mostrar mensajes comprensibles para el usuario en lugar de finalizar el programa mostrando únicamente un error técnico.
+
+## 🧠 Conceptos de Programación Aplicados
+
+Durante el desarrollo de ArticleToAudio se aplicaron diferentes conceptos fundamentales de programación y desarrollo de software.
+
+### 🧱 Programación Orientada a Objetos (POO)
+
+El proyecto utiliza Programación Orientada a Objetos para organizar sus principales responsabilidades mediante clases.
+
+Se definieron dos clases:
+
+* 🌐 Extractor: encargada de descargar y analizar el artículo, además de obtener su título, texto e idioma.
+* 🔊 Audio: encargada de convertir el texto en un archivo de audio .mp3.
+
+Cada clase agrupa los datos y comportamientos relacionados con una responsabilidad específica.
+
+### 🧩 Clases y objetos
+
+Las clases definidas en el proyecto son utilizadas mediante la creación de objetos en main.py:
+
+```python
+extractor = Extractor(url)
+audio = Audio(texto, idioma)
+```
+
+En este caso, Extractor y Audio son las clases, mientras que extractor y audio son objetos creados a partir de ellas.
+
+### ⚙️ Métodos
+
+Las clases contienen métodos que permiten realizar acciones específicas.
+
+Por ejemplo, la clase Extractor incluye:
+
+```python
+descargar()
+analizar()
+obtener_idioma()
+obtener_titulo()
+obtener_texto()
+```
+
+Mientras que la clase Audio incluye:
+
+```python
+convertir()
+```
+
+Esto permite dividir el funcionamiento del programa en acciones concretas y mantener el código organizado.
+
+### 📦 Encapsulamiento y atributos
+
+Los objetos almacenan la información que necesitan mediante atributos.
+
+Por ejemplo, Extractor utiliza:
+
+```python
+self.url
+self.article
+```
+
+Mientras que Audio utiliza:
+
+```python
+self.texto
+self.idioma
+```
+
+Estos atributos pertenecen a cada instancia y son utilizados por sus respectivos métodos.
+
+### 🔄 Separación de responsabilidades
+
+Cada componente del proyecto tiene una función específica:
+
+* 🖥️ main.py coordina el flujo de la aplicación y la interacción con el usuario.
+* 🌐 extractor.py se ocupa de la extracción y análisis del artículo.
+* 🔊 audio.py se ocupa de la generación del archivo de audio.
+
+Esta separación facilita la lectura, mantenimiento y futura ampliación del proyecto.
+
+### ⚠️ Manejo de excepciones
+
+El programa utiliza try y except para controlar posibles errores durante la ejecución.
+
+En main.py se utilizan bloques independientes para:
+
+* 🌐 Descargar y analizar el artículo.
+* 🔊 Convertir el texto en audio.
+
+Esto permite mostrar mensajes al usuario cuando ocurre un problema sin finalizar la aplicación de manera inesperada.
+
+### 📚 Uso de librerías externas
+
+El proyecto integra diferentes librerías para resolver tareas específicas:
+
+* 🌐 newspaper3k para descargar y analizar artículos.
+* 🔤 langdetect para detectar el idioma del texto.
+* 🔊 gTTS para convertir texto en voz.
+* 📁 os para gestionar el directorio donde se almacenan los audios.
+* 🕐 datetime para generar nombres de archivo utilizando la fecha y hora.
+
+### 🔗 Integración de componentes
+
+Finalmente, main.py actúa como punto de unión entre las diferentes partes del proyecto.
+
+El resultado obtenido por Extractor se utiliza como entrada para Audio:
+
+```text
+🌐 Extractor
+     │
+     │ texto + idioma
+     ▼
+🔊 Audio
+     │
+     ▼
+🎧 Archivo MP3
+```
+
+De esta manera, diferentes conceptos de programación se integran en una aplicación funcional y organizada.
+
+## 🚀 Próximas mejoras
+
+ArticleToAudio V1 establece una base funcional para la extracción de artículos web y su conversión a archivos de audio. A partir de esta primera versión, se identifican diferentes posibilidades de mejora para futuras versiones del proyecto.
+
+### 🔤 Mejora de la detección del idioma
+
+* Implementar mecanismos adicionales para detectar el idioma cuando los metadatos no estén disponibles.
+* Validar que el código de idioma obtenido sea compatible con gTTS.
+* Mejorar el tratamiento de textos demasiado cortos o con contenido en varios idiomas.
+
+### 🎙️ Opciones de generación de audio
+
+* Permitir seleccionar diferentes opciones de voz o configuración disponibles para la conversión.
+* Incorporar opciones para controlar características de la generación del audio cuando el servicio utilizado lo permita.
+* Permitir seleccionar el nombre y ubicación del archivo generado.
+
+### 🌐 Ampliación de la extracción de contenido
+
+* Mejorar el manejo de diferentes tipos de páginas web.
+* Incorporar mecanismos para gestionar artículos cuyo contenido no pueda ser extraído correctamente.
+* Permitir procesar diferentes fuentes de contenido además de artículos web.
+
+### 🖥️ Interfaz de usuario
+
+* Desarrollar una interfaz gráfica que facilite el uso de la aplicación.
+* Posteriormente, explorar la posibilidad de convertir el proyecto en una aplicación web.
+
+### 🧱 Mejoras en la arquitectura
+
+* Continuar mejorando la separación de responsabilidades entre los diferentes componentes.
+* Incorporar nuevas clases y módulos a medida que aumente la funcionalidad del proyecto.
+* Mejorar la gestión y validación de errores.
+
+### 🧪 Pruebas
+
+* Incorporar pruebas automatizadas para verificar el funcionamiento de las principales clases y métodos.
+* Crear diferentes casos de prueba para validar la extracción, detección del idioma y generación de audio.
+
+### 📈 Evolución del proyecto
+
+Estas mejoras podrán incorporarse progresivamente en futuras versiones, manteniendo como objetivo principal que ArticleToAudio evolucione de un proyecto de aprendizaje a una aplicación más completa, robusta y fácil de utilizar.
+
+## 👤 Autor
+
+**Lucas O. Urbano Bedoya**
+
+🎓 Ingeniero de Materiales | 💻 Estudiante de Desarrollo Full Stack
+
+Este proyecto fue desarrollado como parte de mi proceso de aprendizaje y práctica en desarrollo de software, aplicando conocimientos de Python, Programación Orientada a Objetos, manejo de librerías externas y desarrollo de aplicaciones funcionales.
+
+🚀 ArticleToAudio representa uno de los proyectos de mi camino hacia el desarrollo de software, combinando aprendizaje, creatividad y resolución de problemas para construir soluciones prácticas.
+
+💡 Me gusta pensar que cada proyecto nace de una chispa de inspiración, y con disciplina y creatividad se transforma en algo funcional. Ese es el enfoque que aplico aquí y en todo lo que construyo.
